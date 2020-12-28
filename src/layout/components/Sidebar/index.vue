@@ -50,5 +50,9 @@ export default {
       return !this.sidebar.opened
     }
   }
+  // mounted() {
+  //    variables.menuText= 'red';
+  //   variables.menuActiveText= 'yellow';
+  // }
 }
 </script>

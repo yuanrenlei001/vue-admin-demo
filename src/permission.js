@@ -1,6 +1,6 @@
 import router from './router'
 import store from './store'
-import { Message } from 'element-ui'
+import { Message, Loading } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
@@ -10,7 +10,16 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
 
+// 显示加载
+let loadingInstance
+
 router.beforeEach(async (to, from, next) => {
+  // 显示加载框
+  loadingInstance = Loading.service({ 
+    fullscreen: true,
+    text: '加载中...'
+  });
+
   // start progress bar
   NProgress.start()
 
@@ -68,6 +77,10 @@ router.beforeEach(async (to, from, next) => {
 })
 
 router.afterEach(() => {
+  setTimeout(()=>{
+    loadingInstance.close();
+  },1000)
+ 
   // finish progress bar
   NProgress.done()
 })
